@@ -124,4 +124,57 @@ public class LinkedListDequeTest {
             assertEquals("Should have the same value", i, (double) lld1.removeLast(), 0.0);
         }
     }
+
+    @Test
+    public void equalsTest() {
+        LinkedListDeque<String> strDeq = new LinkedListDeque<>();
+        strDeq.addLast("corey");
+        strDeq.addLast("schafer");
+
+        int a = 10;
+        Object b = null;
+        LinkedListDeque<String> c = new LinkedListDeque<>();
+        c.addLast("josh");
+        LinkedListDeque<String> d = new LinkedListDeque<>();
+        d.addFirst("schafer");
+        d.addFirst("corey");
+        ArrayDeque<String> e = new ArrayDeque<>();
+        ArrayDeque<String> f = new ArrayDeque<>();
+        f.addFirst("corey");
+        f.addLast("schafer");
+        ArrayDeque<Double> g = new ArrayDeque<>();
+        g.addLast(100.0);
+        g.addLast(2.1);
+
+        assertFalse(strDeq.equals(a));
+        assertFalse(strDeq.equals(b));
+        assertFalse(strDeq.equals(c));
+        assertTrue(strDeq.equals(d));
+        assertFalse(strDeq.equals(e));
+        assertTrue(strDeq.equals(f));
+        assertFalse(strDeq.equals(g));
+
+        LinkedListDeque<Integer> intDeq = new LinkedListDeque<>();
+        intDeq.addLast(10);
+        intDeq.addLast(100);
+        assertFalse(intDeq.equals(strDeq));
+    }
+
+    @Test
+    public void iteratorTest() {
+        LinkedListDeque<Integer> intDeq = new LinkedListDeque<>();
+        intDeq.addLast(3);
+        intDeq.addLast(4);
+        for (int item : intDeq) {
+            System.out.print(item + " ");
+        }
+        System.out.println();
+
+        intDeq.removeFirst();
+        intDeq.removeFirst();
+        for (int item : intDeq) {
+            System.out.print(item + "..");
+        }
+        System.out.println();
+    }
 }

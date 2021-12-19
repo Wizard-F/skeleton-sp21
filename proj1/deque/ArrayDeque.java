@@ -5,7 +5,9 @@ front: denotes the index of the first element of the deque; always ranges from 0
 back: denotes (the index of the last element of the deque + 1) % array.length
 */
 
-public class ArrayDeque<T> implements Deque<T> {
+import java.util.Iterator;
+
+public class ArrayDeque<T> implements Deque<T>, Iterable<T> {
     private T[] array;
     private int size = 0;
     private int front = 0;
@@ -130,5 +132,45 @@ public class ArrayDeque<T> implements Deque<T> {
     @Override
     public T get(int index) {
         return array[(front+index) % array.length];
+    }
+
+    public boolean equals(Object o) {
+        if (!(o instanceof Deque<?>)) {
+            return false;
+        } else {
+            Deque<T> o1 = (Deque<T>) o;
+            if (size != o1.size()) {
+                return false;
+            }
+            if (isEmpty() && o1.isEmpty()) {
+                return true;
+            }
+            for (int i=0; i<size; i+=1) {
+                if (array[(front+i)%array.length] != o1.get(i)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
+    private class ArrayDequeIterator implements Iterator<T> {
+        int pos = 0;
+        @Override
+        public boolean hasNext() {
+            return pos < size;
+        }
+
+        @Override
+        public T next() {
+            T returnItem = array[(front+pos) % array.length];
+            pos += 1;
+            return returnItem;
+        }
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new ArrayDequeIterator();
     }
 }

@@ -71,4 +71,57 @@ public class ArrayDequeTest {
             }
         }
     }
+
+    @Test
+    public void equalsTest() {
+        ArrayDeque<String> strDeq = new ArrayDeque<>();
+        strDeq.addLast("corey");
+        strDeq.addLast("schafer");
+
+        int a = 10;
+        Object b = null;
+        ArrayDeque<String> c = new ArrayDeque<>();
+        c.addLast("josh");
+        ArrayDeque<String> d = new ArrayDeque<>();
+        d.addFirst("schafer");
+        d.addFirst("corey");
+        LinkedListDeque<String> e = new LinkedListDeque<>();
+        LinkedListDeque<String> f = new LinkedListDeque<>();
+        f.addFirst("corey");
+        f.addLast("schafer");
+        LinkedListDeque<Double> g = new LinkedListDeque<>();
+        g.addLast(100.0);
+        g.addLast(2.1);
+
+        assertFalse(strDeq.equals(a));
+        assertFalse(strDeq.equals(b));
+        assertFalse(strDeq.equals(c));
+        assertTrue(strDeq.equals(d));
+        assertFalse(strDeq.equals(e));
+        assertTrue(strDeq.equals(f));
+        assertFalse(strDeq.equals(g));
+
+        ArrayDeque<Integer> intDeq = new ArrayDeque<>();
+        intDeq.addLast(10);
+        intDeq.addLast(100);
+        assertFalse(intDeq.equals(strDeq));
+    }
+
+    @Test
+    public void iteratorTest() {
+        ArrayDeque<Integer> intDeq = new ArrayDeque<>();
+        intDeq.addLast(3);
+        intDeq.addLast(4);
+        for (int item : intDeq) {
+            System.out.print(item + " ");
+        }
+        System.out.println();
+
+        intDeq.removeFirst();
+        intDeq.removeFirst();
+        for (int item : intDeq) {
+            System.out.print(item + "..");
+        }
+        System.out.println();
+    }
 }
