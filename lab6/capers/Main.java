@@ -1,11 +1,12 @@
 package capers;
 
 import java.io.File;
+import java.util.Arrays;
 
 import static capers.Utils.*;
 
 /** Canine Capers: A Gitlet Prelude.
- * @author TODO
+ * @author Forrest Futao Wei
 */
 public class Main {
     /**
@@ -31,7 +32,7 @@ public class Main {
      *  YOUR PROGRAM SHOULD CREATE THESE FOLDERS/FILES*
      *
      * .capers/ -- top level folder for all persistent data in your lab12 folder
-     *    - dogs/ -- folder containing all of the persistent data for dogs
+     *    - dogs/ -- folder containing all the persistent data for dogs
      *    - story -- file containing the current story
      *
      * @param args arguments from the command line
@@ -44,22 +45,29 @@ public class Main {
         CapersRepository.setupPersistence();
         String text;
         switch (args[0]) {
-        case "story":
-            /* This call has been handled for you. The rest will be similar. */
-            validateNumArgs("story", args, 2);
-            text = args[1];
-            CapersRepository.writeStory(text);
-            break;
-        case "dog":
-            validateNumArgs("dog", args, 4);
-            // TODO: make a dog
-            break;
-        case "birthday":
-            validateNumArgs("birthday", args, 2);
-            // TODO: celebrate this dog's birthday
-            break;
-        default:
-            exitWithError(String.format("Unknown command: %s", args[0]));
+            case "story":
+                /* This call has been handled for you. The rest will be similar. */
+                validateNumArgs("story", args, 2);
+                text = args[1];
+                CapersRepository.writeStory(text);
+                break;
+            case "dog":
+                validateNumArgs("dog", args, 4);
+                // TODO: make a dog
+                Dog dog = new Dog(args[1], args[2], Integer.parseInt(args[3]));
+                dog.saveDog();
+                System.out.println(dog.toString());
+                break;
+            case "birthday":
+                validateNumArgs("birthday", args, 2);
+                // TODO: celebrate this dog's birthday
+                String nameOfDog = args[1];
+                dog = Dog.fromFile(nameOfDog);
+                dog.haveBirthday();
+                dog.saveDog();
+                break;
+            default:
+                exitWithError(String.format("Unknown command: %s", args[0]));
         }
         return;
     }
