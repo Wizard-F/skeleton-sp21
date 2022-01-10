@@ -98,13 +98,21 @@ public class ULLMap<K, V>  implements Map61B<K, V> {
          * is equal to KEY, or null if no such Entry exists.
          */
         Entry get(K k) {
-            if (k != null && k.equals(key)) {
-                return this;
+//            if (k != null && k.equals(key)) {
+//                return this;
+//            }
+//            if (next == null) {
+//                return null;
+//            }
+//            return next.get(k);
+            Entry temp = this;
+            while (temp != null) {
+                if (k != null && k.equals(temp.key)) {
+                    return temp;
+                }
+                temp = temp.next;
             }
-            if (next == null) {
-                return null;
-            }
-            return next.get(k);
+            return null;
         }
 
         /** Stores the key of the key-value pair of this node in the list. */
